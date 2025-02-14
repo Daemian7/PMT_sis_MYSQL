@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Agregar Boletas</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="css/boleta1.css">
+        <link rel="icon" href="img/logopmt.ico" type="image/x-icon">
+      </head>
+<body>
+  
+      <aside class="sidebar">
+        <div class="logo"> 
+          <img src="img/logopmt.png" alt="" width="80" align = "left">
+          <h1>PMT</h1>
+          <p>San Felipe Retalhuleu</p>
+        </div>
+        <nav class="menu">
+          <ul>
+            <li><a href="/index">Inicio</a></li>
+            <li><a href="/boleta">Ingreso de Boleta</a></li>
+            <li><a href="/registros">Ver Boletas</a></li>            
+            <li><a href="/solvencia">Solvencias</a></li>
+            <li><a href="/api/traslado/generarPDF" target="_blank">Traslados</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- Contenido principal -->
+      <main class="main-content">
+        <h3 style="color: #2d2f6a;">Datos de Boleta</h3>
+        <form>
+          <!-- Boleta Info -->
+          <div class="form-section">
+            <label for="boleta">No. Boleta</label>
+            <input type="text" id="no_boleta" placeholder="0000">
+  
+            <label for="tipo-placa">Tipo de Placa</label>
+            <select id="tipo-placa">
+              <option>Seleccionar tipo</option>
+            </select>
+  
+            <label for="placa">Placa</label>
+            <input type="text" id="placa" style="text-transform: uppercase;" placeholder="Número de placa">
+  
+            <label for="tipo-vehiculo">Tipo de Vehículo</label>
+            <select id="tipo-vehiculo">
+              <option>Seleccionar tipo</option>
+            </select>
+          </div>
+
+  
+          <!-- Vehículo y Conductor -->
+          <fieldset>
+            <legend style="color: #2d2f6a;">Datos del Vehículo y Conductor</legend>
+            <div class="form-section">
+              <label for="propietario">Nit Propietario</label>
+              <input type="text" id="propietario" placeholder="Nit de propietario ">
+  
+              <label for="tarjeta">Tarjeta Circulación</label>
+              <input type="text" id="tarjeta" placeholder="Tarjeta de Vehiculo ">
+  
+              <label for="marca">Marca</label>
+              <input type="text" id="marca" placeholder="Marca de Vehiculo ">
+  
+              <label for="color">Color</label>
+              <input type="text" id="color" placeholder="Color de Vehiculo ">
+  
+              <label for="licencia">No. Licencia</label>
+              <input type="text" id="licencia" placeholder="Licencia de Vehiculo ">
+  
+              <label for="tipo-licencia">Tipo Licencia</label>
+              <select id="tipo-licencia">
+              <option>Seleccionar tipo</option>
+            </select>
+
+            <label for="doclic">No. Doc. Licencia</label>
+              <input type="text" id="doclicencia" placeholder="Doc. Licencia de Vehiculo ">
+
+              <label for="lugar">Licencia Extendida</label>
+              <select id="lugar_ext">
+                <option>Seleccionar Lugar</option>
+              </select>
+            </div>
+          </fieldset>
+  
+          <!-- Datos del Conductor -->
+          <fieldset>
+            <legend style="color: #2d2f6a;">Datos del Conductor</legend>
+            <div class="form-section">
+              <label for="primer-nombre">Primer Nombre</label>
+              <input type="text" id="primer-nombre">
+  
+              <label for="segundo-nombre">Segundo Nombre</label>
+              <input type="text" id="segundo-nombre">
+  
+              <label for="primer-apellido">Primer Apellido</label>
+              <input type="text" id="primer-apellido">
+  
+              <label for="segundo-apellido">Segundo Apellido</label>
+              <input type="text" id="segundo-apellido">
+  
+              <label for="dpi">No. DPI</label>
+              <input type="text" id="dpi">
+  
+              
+            </div>
+          </fieldset>
+  
+          <!-- Infracción Cometida -->
+          <fieldset>
+            <legend style="color: #2d2f6a;">Infracción Cometida</legend>
+            <label for="articulo">Seleccionar artículo</label>
+            <select id="articulo" style="width: 700px;">
+              <option>Seleccionar artículo</option>
+            </select>
+            <button type="button" class="btn" id="addarticulo">Agregar</button>
+            <!-- aqui van a ir todos los articulos que se agreguen al carrito xd -->
+              <div class="articulosadd">
+
+              </div>
+              <br> <br>
+             <div class="form-section">
+            <label for="fechainfo">Si Cancela hasta</label>
+            <input type="date" id="fechainfo" lang="es" >
+            <label for="total">Total Q.</label>
+            <input type="text" id="total" >
+            
+             </div>
+          </fieldset>
+           
+          <fieldset>
+            <legend style="color: #2d2f6a;">Informacion de Boleta</legend>
+            <div class="form-section">
+              <label for="Lugar_infrac">Lugar de infracción</label>
+              <input type="text" id="lugar_infrac" placeholder="lugar infraccion">
+  
+              <label for="agente">Agente </label>
+              <select id="agente">
+                <option>Seleccionar Agente</option>
+              </select>
+  
+              <label for="fecha">Fecha</label>
+              <input type="date" id="fecha">
+  
+              <label for="hora">Hora</label>
+              <input type="time" id="hora">
+  
+              <label for="observaciones">Observaciones</label>
+              <input type="text" id="observaciones" placeholder="observaciones" > 
+              <label for="firma" >Firma del infractor</label>
+
+              <select id="firma">
+                <option>Seleccionar Firma</option>
+              </select>
+              <label for="infraccion" >Tipo de infracción</label>
+              <select id="infraccion" >
+                <option>Seleccionar infraccion</option>
+              </select>
+
+              <button  class="btn" style="width: 150px;">Agregar Imagen</button><input type="text" id="imagen" disabled placeholder="url imagen"> 
+            </div>
+          </fieldset>
+            <fieldset>
+                <button  class="btn" style="background-color:#80d141 ; width: 480px; height: 50px;" id="submit-button" >Guardar</button>
+                <button  class="btn" style="background-color:#5497d0 ; width: 480px; height: 50px;" id="clean">Limpiar</button>
+            </fieldset>
+          
+        </form>
+      </main>
+    </div>
+  <!-- scripts de todos los select js consumiendo api -->
+<script src="js/placas.js"></script>
+<script src="js/vehiculos.js"></script>
+<script src="js/licencia.js"></script>
+<script src="js/extendida.js"></script>
+<!-- <script src="js/articulos.js"></script> -->
+<script src="js/agente.js"></script>
+<script src="js/firma.js"></script>
+<script src="js/infraccion.js"></script>
+<!-- <script src="js/pp.js"></script> -->
+<!-- <script src="js/registrarboleta.js"></script> -->
+<script src="js/script.js"></script>
+<script src="js/prueba.js"></script>
+<script src="js/clean.js"></script>
+  </body>
+</html>
