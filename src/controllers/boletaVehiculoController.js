@@ -4,12 +4,12 @@ const insertBoleta = async (req, res) => {
     try {
         const {
             tipo_placa, placa_cod, id_vehiculo, nit_prop, tarjeta_circ, marca, color,
-            tipo_licencia, no_licencia, no_doc_licencia, dpi, extendida, nombre, no_boleta
+            tipo_licencia, no_licencia, dpi, extendida, nombre, no_boleta
         } = req.body;
 
-        const query = `CALL InsertarBoletaVehiculo(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const query = `CALL InsertarBoletaVehiculo(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
         const params = [tipo_placa, placa_cod, id_vehiculo, nit_prop, tarjeta_circ, marca, color,
-            tipo_licencia, no_licencia, no_doc_licencia, dpi, extendida, nombre, no_boleta];
+            tipo_licencia, no_licencia, dpi, extendida, nombre, no_boleta];
 
         const [result] = await db.execute(query, params);
 
@@ -41,12 +41,12 @@ const updateBoleta = async (req, res) => {
     try {
         const {
             id_boleta, tipo_placa, placa_cod, id_vehiculo, nit_prop, tarjeta_circ, marca,
-            color, tipo_licencia, no_licencia, no_doc_licencia, dpi, extendida, nombre, no_boleta
+            color, tipo_licencia, no_licencia, dpi, extendida, nombre, no_boleta
         } = req.body;
 
-        const query = `CALL sp_ActualizarBoletaVehiculo(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const query = `CALL sp_ActualizarBoletaVehiculo(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
         const params = [id_boleta, tipo_placa, placa_cod, id_vehiculo, nit_prop, tarjeta_circ, marca,
-            color, tipo_licencia, no_licencia, no_doc_licencia, dpi, extendida, nombre, no_boleta];
+            color, tipo_licencia, no_licencia, dpi, extendida, nombre, no_boleta];
 
         const [result] = await db.execute(query, params);
         res.status(200).json({ filas_actualizadas: result.affectedRows });

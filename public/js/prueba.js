@@ -87,7 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     color: document.getElementById("color").value,
                     tipo_licencia: document.getElementById("tipo-licencia").value,
                     no_licencia: document.getElementById("licencia").value,
-                    no_doc_licencia: document.getElementById("doclicencia").value,
                     dpi: document.getElementById("dpi").value,
                     extendida: document.getElementById("lugar_ext").value,
                     nombre: `${document.getElementById("primer-nombre").value} ${document.getElementById("segundo-nombre").value} ${document.getElementById("primer-apellido").value} ${document.getElementById("segundo-apellido").value}`.trim(),

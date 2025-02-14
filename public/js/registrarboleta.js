@@ -1,5 +1,5 @@
 document.getElementById("submitButton").addEventListener("click", async function () {
-    // Capturar valores del formulario
+        // Capturar valores del formulario
     const no_boleta = document.getElementById("no_boleta").value;
     const tipo_placa = document.getElementById("tipo-placa").value;
     const placa_cod = document.getElementById("placa").value;
@@ -10,7 +10,6 @@ document.getElementById("submitButton").addEventListener("click", async function
     const color = document.getElementById("color").value;
     const tipo_licencia = document.getElementById("tipo-licencia").value;
     const no_licencia = document.getElementById("licencia").value;
-    const no_doc_licencia = document.getElementById("doclicencia").value;
     const dpi = document.getElementById("dpi").value;
     const extendida = document.getElementById("lugar_ext").value;
 
@@ -32,7 +31,6 @@ document.getElementById("submitButton").addEventListener("click", async function
         color,
         tipo_licencia,
         no_licencia,
-        no_doc_licencia,
         dpi,
         extendida,
         nombre,

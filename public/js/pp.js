@@ -12,7 +12,6 @@ document.getElementById("submit-button").addEventListener("click", async functio
     const color = document.getElementById("color").value;
     const tipo_licencia = document.getElementById("tipo-licencia").value;
     const no_licencia = document.getElementById("licencia").value;
-    const no_doc_licencia = document.getElementById("doclicencia").value;
     const dpi = document.getElementById("dpi").value;
     const extendida = document.getElementById("lugar_ext").value;
 
@@ -34,7 +33,6 @@ document.getElementById("submit-button").addEventListener("click", async functio
         color,
         tipo_licencia,
         no_licencia,
-        no_doc_licencia,
         dpi,
         extendida,
         nombre,

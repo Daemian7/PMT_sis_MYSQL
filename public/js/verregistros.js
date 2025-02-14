@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     <td>${boleta.color}</td>
                     <td>${boleta.tipo_licen}</td>
                     <td>${boleta.no_licencia}</td>
-                    <td>${boleta.no_doc_licencia}</td>
                     <td>${boleta.dpi}</td>
                     <td>${boleta.ubicacion}</td>
                     <td>${boleta.nombre}</td>
