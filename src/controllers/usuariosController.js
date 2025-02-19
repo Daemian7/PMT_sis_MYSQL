@@ -1,24 +1,23 @@
 const db = require("../db/db"); // Importa la conexión a la base de datos MySQL
 
 // Insertar un nuevo usuario
-const insertUsuario = (req, res) => {
-  const { name_user, chapa } = req.body;
-
-  const query = "INSERT INTO usuarios (name_user, chapa) VALUES (?, ?)";
-  const params = [name_user, chapa];
-
-  db.query(query, params, (err, result) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
+async function insertUsuario(req, res) {
+  try {
+    const { name_user, chapa } = req.body;
+    const query = "INSERT INTO usuarios (name_user, chapa) VALUES (?, ?)";
+    const [result] = await db.query(query, [name_user, chapa]);
     res.status(201).json({ newUserId: result.insertId });
-  });
-};
+  } catch (error) {
+    console.error("Error al insertar usuario:", error);
+    res.status(500).json({ error: "Error al insertar usuario" });
+  }
+}
+
 
 // Obtener todos los usuarios
 async function getUsuarios(req, res) {
   try {
-      const [rows] = await db.query("SELECT * FROM usuarios");
+      const [rows] = await db.query("SELECT * FROM usuarios ORDER BY chapa ASC");
       res.json(rows);
   } catch (error) {
       console.error(error);

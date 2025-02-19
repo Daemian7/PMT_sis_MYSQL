@@ -8,7 +8,7 @@ exports.buscarBoletas = async (req, res) => {
         const { tipoPlaca, placaCod } = req.body;
         const query = `
             SELECT BV.no_boleta, p.placa_inicial, BV.placa_cod, v.nombre AS tipo_vehiculo, BV.nit_prop,
-                   BV.tarjeta_circ, BV.marca, BV.color, l.tipo_licen, BV.no_licencia, BV.no_doc_licencia,
+                   BV.tarjeta_circ, BV.marca, BV.color, l.tipo_licen, BV.no_licencia,
                    BV.dpi, e.ubicacion, BV.nombre, es.estado,
                    SUM(a.precio) AS total_precio
             FROM boleta_vehiculo BV
@@ -24,7 +24,7 @@ exports.buscarBoletas = async (req, res) => {
             WHERE p.id_placa = ? AND BV.placa_cod = ? AND es.id_estado = 1
             GROUP BY BV.no_boleta, p.placa_inicial, BV.placa_cod, v.nombre, BV.nit_prop,
                      BV.tarjeta_circ, BV.marca, BV.color, l.tipo_licen, BV.no_licencia,
-                     BV.no_doc_licencia, BV.dpi, e.ubicacion, BV.nombre, es.estado;
+                      BV.dpi, e.ubicacion, BV.nombre, es.estado;
         `;
 
         const [rows] = await db.query(query, [tipoPlaca, placaCod]);
@@ -40,7 +40,7 @@ exports.generarPDF = async (req, res) => {
         const { tipoPlaca, placaCod } = req.query;
         const query = `
             SELECT BV.no_boleta, p.placa_inicial, BV.placa_cod, v.nombre AS tipo_vehiculo, BV.nit_prop,
-                   BV.tarjeta_circ, BV.marca, BV.color, l.tipo_licen, BV.no_licencia, BV.no_doc_licencia,
+                   BV.tarjeta_circ, BV.marca, BV.color, l.tipo_licen, BV.no_licencia,
                    BV.dpi, e.ubicacion, BV.nombre, es.estado, a.precio, a.numero_artic, a.detalle
             FROM boleta_vehiculo BV
             INNER JOIN placa p ON p.id_placa = BV.tipo_placa

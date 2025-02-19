@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Agentes</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/boleta2.css">
+    <link rel="stylesheet" href="css/boleta1.css">
+    <link rel="icon" href="img/logopmt.ico" type="image/x-icon">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo"> 
+          <img src="img/logopmt.png" alt="" width="80" align = "left">
+          <h1>PMT</h1>
+          <p>San Felipe Retalhuleu</p>
+        </div>
+        <nav class="menu">
+          <ul>
+            <li><a href="/index">Inicio</a></li>
+            <li><a href="/boleta">Ingreso de Boleta</a></li>
+            <li><a href="/registros">Ver Boletas</a></li>            
+            <li><a href="/solvencia">Solvencias</a></li>
+            <li><a href="/api/traslado/generarPDF" target="_blank">Traslados</a></li>
+            <li><a href="/agente">Registro Nuevo Agentes</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+    <main class="main-content p-4">
+        <header class="mb-4">
+            <h1 class="text-primary">Registro de Agentes</h1>
+        </header>
+
+        <!-- Formulario de Registro -->
+        <div class="card p-4 shadow-sm">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="agente_name" class="form-label">Nombre Agente</label>
+                    <input type="text" id="agente_name" class="form-control" placeholder="Ingrese nombre">
+                </div>
+                <div class="col-md-6">
+                    <label for="chapa" class="form-label">No. chapa</label>
+                    <input type="text" id="chapa" class="form-control" placeholder="Ingrese Chapa ex: 002">
+                </div>
+            </div>
+            <button id="btn_agente" class="btn btn-primary">Registrar</button>
+        </div>
+
+        <!-- Tabla de Agentes Registrados -->
+        <div class="mt-4">
+            <h2 class="h5">Agentes Registrados</h2>
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                  <tr>
+                    <th style="color: black;">ID</th>
+                    <th style="color: black;">Nombre</th>
+                    <th style="color: black;">No. Chapa</th>
+                  </tr>
+                </thead>
+                <tbody id="agentesTableBody">
+                  <!-- Aquí se insertarán dinámicamente las filas -->
+                </tbody>
+              </table>
+              
+        </div>
+    </main>
+
+   <script src="js/agente_tabla.js"></script>
+   <script src="js/registrar_agente.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-02-2025 a las 05:19:35
+-- Tiempo de generación: 19-02-2025 a las 07:12:29
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -46,33 +46,39 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `GetSession` (IN `p_id_sess` INT)   
     WHERE id_sess = p_id_sess;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarBoletaVehiculo` (IN `tipo_placa` INT, IN `placa_cod` VARCHAR(8), IN `id_vehiculo` INT, IN `nit_prop` VARCHAR(20), IN `tarjeta_circ` VARCHAR(100), IN `marca` VARCHAR(100), IN `color` VARCHAR(100), IN `tipo_licencia` INT, IN `no_licencia` VARCHAR(100), IN `no_doc_licencia` VARCHAR(100), IN `dpi` VARCHAR(13), IN `extendida` INT, IN `nombre` VARCHAR(255), IN `no_boleta` INT)   BEGIN
-    DECLARE codigo_error VARCHAR(10);
-    DECLARE mensaje_error TEXT;
-
-    -- Manejo de errores
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION 
-    BEGIN
-        GET DIAGNOSTICS CONDITION 1 codigo_error = RETURNED_SQLSTATE, mensaje_error = MESSAGE_TEXT;
-        ROLLBACK;
-        SELECT codigo_error AS codigo_error, mensaje_error AS mensaje_error;
-    END;
-
-    START TRANSACTION;
-
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarBoletaVehiculo` (IN `tipo_placa` INT, IN `placa_cod` VARCHAR(8), IN `id_vehiculo` INT, IN `nit_prop` INT, IN `tarjeta_circ` VARCHAR(100), IN `marca` VARCHAR(100), IN `color` VARCHAR(100), IN `tipo_licencia` INT, IN `no_licencia` VARCHAR(100), IN `dpi` VARCHAR(13), IN `extendida` INT, IN `nombre` VARCHAR(255), IN `no_boleta` INT)   BEGIN
+    -- Insertar datos en la tabla boleta_vehiculo
     INSERT INTO boleta_vehiculo (
-        tipo_placa, placa_cod, id_vehiculo, nit_prop, tarjeta_circ,
-        marca, color, tipo_licencia, no_licencia, no_doc_licencia,
-        dpi, extendida, nombre, no_boleta
+        tipo_placa,
+        placa_cod,
+        id_vehiculo,
+        nit_prop,
+        tarjeta_circ,
+        marca,
+        color,
+        tipo_licencia,
+        no_licencia,
+        dpi,
+        extendida,
+        nombre,
+        no_boleta
     ) VALUES (
-        tipo_placa, placa_cod, id_vehiculo, nit_prop, tarjeta_circ,
-        marca, color, tipo_licencia, no_licencia, no_doc_licencia,
-        dpi, extendida, nombre, no_boleta
+        tipo_placa,
+        placa_cod,
+        id_vehiculo,
+        nit_prop,
+        tarjeta_circ,
+        marca,
+        color,
+        tipo_licencia,
+        no_licencia,
+        dpi,
+        extendida,
+        nombre,
+        no_boleta
     );
 
-    COMMIT;
-
-    -- Devuelve el ID insertado
+    -- Devolver el ID generado
     SELECT LAST_INSERT_ID() AS id_boleta;
 END$$
 
@@ -707,6 +713,30 @@ INSERT INTO `articulos` (`id_artic`, `numero_artic`, `detalle`, `precio`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `boleta_eliminada`
+--
+
+CREATE TABLE `boleta_eliminada` (
+  `id_boleta_elim` int(11) NOT NULL,
+  `id_boleta` int(11) NOT NULL,
+  `id_info_boleta` int(11) NOT NULL,
+  `id_multa` int(11) NOT NULL,
+  `no_recibo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `boleta_eliminada`
+--
+
+INSERT INTO `boleta_eliminada` (`id_boleta_elim`, `id_boleta`, `id_info_boleta`, `id_multa`, `no_recibo`) VALUES
+(1, 5, 5, 1, 2),
+(2, 7, 7, 3, 51),
+(3, 8, 8, 4, 33),
+(4, 9, 9, 5, 52);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `boleta_final`
 --
 
@@ -724,7 +754,7 @@ CREATE TABLE `boleta_final` (
 --
 
 INSERT INTO `boleta_final` (`id_boletafin`, `id_boleta`, `id_info_boleta`, `id_multa`, `estado`, `vencimiento`) VALUES
-(1, 5, 5, 1, 1, '2025-04-18');
+(2, 6, 6, 2, 1, '2025-05-07');
 
 -- --------------------------------------------------------
 
@@ -743,7 +773,6 @@ CREATE TABLE `boleta_vehiculo` (
   `color` varchar(100) DEFAULT NULL,
   `tipo_licencia` int(11) NOT NULL,
   `no_licencia` varchar(100) DEFAULT NULL,
-  `no_doc_licencia` varchar(100) DEFAULT NULL,
   `dpi` varchar(13) DEFAULT NULL,
   `extendida` int(11) NOT NULL,
   `nombre` varchar(255) NOT NULL,
@@ -754,11 +783,15 @@ CREATE TABLE `boleta_vehiculo` (
 -- Volcado de datos para la tabla `boleta_vehiculo`
 --
 
-INSERT INTO `boleta_vehiculo` (`id_boleta`, `tipo_placa`, `placa_cod`, `id_vehiculo`, `nit_prop`, `tarjeta_circ`, `marca`, `color`, `tipo_licencia`, `no_licencia`, `no_doc_licencia`, `dpi`, `extendida`, `nombre`, `no_boleta`) VALUES
-(1, 1, '123abc', 2, '456789', '12345678', 'Toyota', 'blanco', 1, '234124', '12345', '1234543311105', 5, 'Carlos Prueba Prueba prueba', 331),
-(2, 1, '123abc', 2, '456789', '12345678', 'Toyota', 'blanco', 1, '234124', '12345', '1234543311105', 5, 'Carlos Prueba Prueba prueba', 331),
-(4, 1, '123abc', 2, '456789', '12345678', 'Toyota', 'blanco', 1, '234124', '12345', '1234543311105', 8, 'Pepe Este Prueba Sistema', 331),
-(5, 1, '123abc', 2, '456789', '12345678', 'Toyota', 'blanco', 1, '234124', '12345', '1234543311105', 9, 'Carlos Prueba Prueba Prueba', 332);
+INSERT INTO `boleta_vehiculo` (`id_boleta`, `tipo_placa`, `placa_cod`, `id_vehiculo`, `nit_prop`, `tarjeta_circ`, `marca`, `color`, `tipo_licencia`, `no_licencia`, `dpi`, `extendida`, `nombre`, `no_boleta`) VALUES
+(1, 1, '123abc', 2, '456789', '12345678', 'Toyota', 'blanco', 1, '234124', '1234543311105', 5, 'Carlos Prueba Prueba prueba', 331),
+(2, 1, '123abc', 2, '456789', '12345678', 'Toyota', 'blanco', 1, '234124', '1234543311105', 5, 'Carlos Prueba Prueba prueba', 331),
+(4, 1, '123abc', 2, '456789', '12345678', 'Toyota', 'blanco', 1, '234124', '1234543311105', 8, 'Pepe Este Prueba Sistema', 331),
+(5, 1, '123abc', 2, '456789', '12345678', 'Toyota', 'blanco', 1, '234124', '1234543311105', 9, 'Carlos Prueba Prueba Prueba', 332),
+(6, 6, '123abg', 5, '456789', '12345678', 'Toyota', 'blanco', 3, '234124', '1234544311108', 88, 'Pepe Prueba Este Sis', 555),
+(7, 1, '456nbv', 2, '456789', '12345678', 'Hyundai', 'negro', 1, '234124', '1234543311103', 53, 'Carlos Prueba Carliños Prueba', 555),
+(8, 5, '123atgh', 11, '456789', '12345678', 'Yamaha', 'negro', 4, '234124', '1234543311114', 67, 'Luis Prueba Este Sistema', 220),
+(9, 1, '123abc', 2, '456789', '12345678', 'Toyota', 'blanco', 1, '234124', '1234543311102', 59, 'Carlos Prueba Prueba Prueba', 339);
 
 -- --------------------------------------------------------
 
@@ -940,7 +973,11 @@ INSERT INTO `info_boleta` (`id_info`, `ubicacion`, `fecha`, `hora`, `id_usuario`
 (1, 'xyz', '2025-02-05', '09:46:00', 10, 'ninguna', 1, 1, 1),
 (2, 'xyz', '2025-02-05', '09:46:00', 10, 'ninguna', 1, 1, 2),
 (4, 'xyz', '2025-02-04', '17:05:00', 13, 'ninguna', 1, 1, 4),
-(5, 'xyz', '2025-02-04', '07:00:00', 13, 'ninguna', 1, 1, 5);
+(5, 'xyz', '2025-02-04', '07:00:00', 13, 'ninguna', 1, 1, 5),
+(6, 'xyz', '2025-02-11', '11:24:00', 15, 'ninguna', 1, 1, 6),
+(7, 'xyz', '2025-04-24', '14:55:00', 14, 'ninguna', 1, 1, 7),
+(8, 'xyz', '2025-01-29', '17:47:00', 15, 'ninguna', 1, 1, 8),
+(9, 'xyz', '2025-02-05', '12:10:00', 13, 'ninguna', 1, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -1002,7 +1039,11 @@ CREATE TABLE `multa` (
 --
 
 INSERT INTO `multa` (`id_multa`, `id_boleta`, `total`) VALUES
-(1, 5, 300);
+(1, 5, 300),
+(2, 6, 200),
+(3, 7, 200),
+(4, 8, 200),
+(5, 9, 200);
 
 -- --------------------------------------------------------
 
@@ -1022,7 +1063,11 @@ CREATE TABLE `multa_detalle` (
 
 INSERT INTO `multa_detalle` (`id_detalle`, `id_multa`, `id_articulo`) VALUES
 (1, 1, 12),
-(2, 1, 3);
+(2, 1, 3),
+(3, 2, 14),
+(4, 3, 12),
+(5, 4, 11),
+(6, 5, 14);
 
 -- --------------------------------------------------------
 
@@ -1086,7 +1131,7 @@ INSERT INTO `session_init` (`id_sess`, `usuario`, `passw`) VALUES
 CREATE TABLE `usuarios` (
   `Id_user` int(11) NOT NULL,
   `name_user` varchar(400) NOT NULL,
-  `chapa` int(11) DEFAULT NULL
+  `chapa` varchar(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1094,22 +1139,47 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`Id_user`, `name_user`, `chapa`) VALUES
-(1, 'Monica Sanchez', 2),
-(2, 'Gilberto Batz', 8),
-(3, 'Jairo Cuc', 11),
-(4, 'Rodrigo Morales', 28),
-(5, 'Abda Calderon', 40),
-(6, 'Milton Chim', 15),
-(7, 'Griselda Hidalgo', 17),
-(8, 'Daniel Vasquez', 21),
-(9, 'Irene Samayoa', 25),
-(10, 'Vidal Villatoro', 33),
-(11, 'Angelica Mejia', 34),
-(12, 'Shirley Chanchavac', 35),
-(13, 'Sergio Hernandez', 36),
-(14, 'Maximo Perez', 37),
-(15, 'Berenice Chanchavac', 38),
-(16, 'Manuel Lopez', 39);
+(1, 'Monica Sanchez', '002'),
+(2, 'Gilberto Batz', '008'),
+(3, 'Jairo Cuc', '011'),
+(4, 'Rodrigo Morales', '028'),
+(5, 'Abda Calderon', '040'),
+(6, 'Milton Chim', '015'),
+(7, 'Griselda Hidalgo', '017'),
+(8, 'Daniel Vasquez', '021'),
+(9, 'Irene Samayoa', '025'),
+(10, 'Vidal Villatoro', '033'),
+(11, 'Angelica Mejia', '034'),
+(12, 'Shirley Chanchavac', '035'),
+(13, 'Sergio Hernandez', '036'),
+(14, 'Maximo Perez', '037'),
+(15, 'Berenice Chanchavac', '038'),
+(16, 'Manuel Lopez', '039'),
+(17, 'Luis Fernando Salazar', '006'),
+(18, 'Claudia Veronica Cifuentes', '009'),
+(19, 'Aylin Gonzalez', '003'),
+(20, 'Diana Alvarado', '005'),
+(21, 'Jose Garcia', '004'),
+(22, 'Cristian Citalan', '010'),
+(23, 'Fernando Chiricoc', '012'),
+(24, 'Leslie Anahi Aguilar', '007'),
+(25, 'Maynor Raul Garcia', '013'),
+(26, 'Jorge Godinez', '014'),
+(27, 'Esvin Custodio', '016'),
+(28, 'Melvin Josue Molina', '018'),
+(29, 'Emilio Palma', '019'),
+(30, 'Esleiter Sanchez', '020'),
+(31, 'Francisco Mazariegos', '022'),
+(32, 'Andy Vasquez', '023'),
+(33, 'Silvia Diaz', '024'),
+(34, 'Vidal Villatoro', '026'),
+(35, 'Lester Poncio', '027'),
+(36, 'Pendiente', '029'),
+(37, 'Abner Jhas', '030'),
+(38, 'Danny Sopon', '031'),
+(39, 'Rosa Escobar', '032'),
+(40, 'Rafael Mendoza', '001A'),
+(41, 'Monica Sanchez', '001B');
 
 -- --------------------------------------------------------
 
@@ -1151,6 +1221,15 @@ INSERT INTO `vehiculos` (`id_vehiculo`, `nombre`) VALUES
 --
 ALTER TABLE `articulos`
   ADD PRIMARY KEY (`id_artic`);
+
+--
+-- Indices de la tabla `boleta_eliminada`
+--
+ALTER TABLE `boleta_eliminada`
+  ADD PRIMARY KEY (`id_boleta_elim`),
+  ADD KEY `fk_boleta` (`id_boleta`),
+  ADD KEY `fk_info_boleta` (`id_info_boleta`),
+  ADD KEY `fk_multa` (`id_multa`);
 
 --
 -- Indices de la tabla `boleta_final`
@@ -1263,16 +1342,22 @@ ALTER TABLE `articulos`
   MODIFY `id_artic` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
+-- AUTO_INCREMENT de la tabla `boleta_eliminada`
+--
+ALTER TABLE `boleta_eliminada`
+  MODIFY `id_boleta_elim` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de la tabla `boleta_final`
 --
 ALTER TABLE `boleta_final`
-  MODIFY `id_boletafin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_boletafin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `boleta_vehiculo`
 --
 ALTER TABLE `boleta_vehiculo`
-  MODIFY `id_boleta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_boleta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `estados`
@@ -1296,7 +1381,7 @@ ALTER TABLE `firma`
 -- AUTO_INCREMENT de la tabla `info_boleta`
 --
 ALTER TABLE `info_boleta`
-  MODIFY `id_info` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_info` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `infraccion`
@@ -1314,13 +1399,13 @@ ALTER TABLE `licencia`
 -- AUTO_INCREMENT de la tabla `multa`
 --
 ALTER TABLE `multa`
-  MODIFY `id_multa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_multa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `multa_detalle`
 --
 ALTER TABLE `multa_detalle`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `placa`
@@ -1338,7 +1423,7 @@ ALTER TABLE `session_init`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `Id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `Id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `vehiculos`
@@ -1349,6 +1434,14 @@ ALTER TABLE `vehiculos`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `boleta_eliminada`
+--
+ALTER TABLE `boleta_eliminada`
+  ADD CONSTRAINT `fk_boleta` FOREIGN KEY (`id_boleta`) REFERENCES `boleta_vehiculo` (`id_boleta`),
+  ADD CONSTRAINT `fk_info_boleta` FOREIGN KEY (`id_info_boleta`) REFERENCES `info_boleta` (`id_info`),
+  ADD CONSTRAINT `fk_multa` FOREIGN KEY (`id_multa`) REFERENCES `multa` (`id_multa`);
 
 --
 -- Filtros para la tabla `boleta_final`

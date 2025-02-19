@@ -22,7 +22,7 @@ const multasRoutes = require('./src/routes/multasRoutes');
 const buscarRoutes = require('./src/routes/buscarRoutes');
 const trasladoRoutes = require("./src/routes/trasladoRoutes");
 const conductorRoutes = require("./src/routes/conductorRoutes");
-
+const eliminarRoutes = require("./src/routes/eliminarRoutes");
 
 
 
@@ -54,6 +54,10 @@ app.get("/solvencia", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "solvencia.html"));
 });
 
+app.get("/agente", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "agentes.html"));
+});
+
 app.get("/login", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "login.html"));
 });
@@ -81,6 +85,7 @@ app.use("/api/detalles",multasRoutes);
 app.use("/api/buscar", buscarRoutes);
 app.use("/api/traslado", trasladoRoutes);
 app.use("/api/conductor", conductorRoutes);
+app.use("/api/eliminar", eliminarRoutes);
 
 
 // Ruta principal (endpoint raíz "/")
