@@ -63,8 +63,8 @@
               <th>Tipo Licencia</th>
               <th>Número Licencia</th>
               <th>DPI</th>
-              <th>Licencia Extendida</th>
               <th>Nombre Propietario</th>
+              <th>Fecha</th>
               <th>Total</th>
               <th>Estado</th>
               <th>Acciones</th>
@@ -91,6 +91,8 @@
               <div class="mb-3">
                 <label for="editNoBoleta" class="form-label">No. Boleta</label>
                 <input type="text" class="form-control" id="editNoBoleta" disabled>
+                <label for="editFecha" class="form-label">Fecha</label>
+                <input type="date" class="form-control" id="editFecha">
               </div>
               <div class="mb-3">
                 <label for="editEstado" class="form-label">Estado</label>
@@ -99,9 +101,9 @@
                   <option value="2">Inactivo</option>
                 </select>
               </div>
-              <!-- Agregar más campos según sea necesario -->
               <button type="submit" class="btn btn-primary">Guardar Cambios</button>
             </form>
+            
           </div>
         </div>
       </div>

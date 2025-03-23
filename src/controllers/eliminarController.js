@@ -21,10 +21,10 @@ const eliminarBoleta = async (req, res) => {
 
         // Inserta en boleta_eliminada
         const insertQuery = `
-            INSERT INTO boleta_eliminada (id_boleta, id_info_boleta, id_multa, no_recibo)
-            SELECT id_boleta, id_info_boleta, id_multa, ?
-            FROM boleta_final
-            WHERE id_boleta = ?;
+           INSERT INTO boleta_eliminada (id_boleta, id_info_boleta, id_multa, no_recibo, fecha_elim)
+SELECT id_boleta, id_info_boleta, id_multa, ?, NOW()
+FROM boleta_final
+WHERE id_boleta = ?;
         `;
         await connection.execute(insertQuery, [no_recibo, id_boleta]);
 

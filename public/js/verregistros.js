@@ -18,21 +18,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
         modalContainer.innerHTML = `
             <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                  <label for="reciboInput" class="form-label">Ingrese el número de recibo:</label>
-                  <input type="text" class="form-control" id="reciboInput" placeholder="Número de recibo">
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                  <button type="button" class="btn btn-danger" id="confirmDelete">Eliminar</button>
-                </div>
-              </div>
-            </div>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+    </div>
+    <div class="modal-body">
+      <label for="reciboInput" class="form-label">Ingrese el número de recibo:</label>
+      <input type="text" class="form-control" id="reciboInput" placeholder="Número de recibo">
+      
+      <!-- Nuevo input de fecha -->
+      <label for="fechaInput" class="form-label mt-3">Seleccione una fecha:</label>
+      <input type="date" class="form-control" id="fechaInput">
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+      <button type="button" class="btn btn-danger" id="confirmDelete">Eliminar</button>
+    </div>
+  </div>
+</div>
+
         `;
         document.body.appendChild(modalContainer);
     }
@@ -67,8 +72,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     <td>${boleta.tipo_licen}</td>
                     <td>${boleta.no_licencia}</td>
                     <td>${boleta.dpi}</td>
-                    <td>${boleta.ubicacion}</td>
                     <td>${boleta.nombre}</td>
+                    <td>${boleta.fecha}</td>
                     <td>${boleta.total_precio}</td>
                     <td class="estado">${boleta.estado}</td>
                     <td>

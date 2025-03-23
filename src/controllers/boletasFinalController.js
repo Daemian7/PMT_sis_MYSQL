@@ -22,7 +22,7 @@ const insertBoletaFinal = async (req, res) => {
 const getBoletas = async (req, res) => {
     try {
         const query = `
-           SELECT 
+ SELECT 
     BV.id_boleta,
     BV.no_boleta, 
     p.placa_inicial, 
@@ -38,6 +38,7 @@ const getBoletas = async (req, res) => {
     e.ubicacion, 
     BV.nombre, 
     es.estado,
+    DATE_FORMAT(ib.fecha, '%d/%m/%Y') AS fecha,
     SUM(a.precio) AS total_precio -- SUMAMOS EL PRECIO DE LOS ARTÍCULOS POR BOLETA
 FROM boleta_vehiculo BV
 INNER JOIN placa p ON p.id_placa = BV.tipo_placa
@@ -49,7 +50,9 @@ INNER JOIN licencia l ON l.id_licen = BV.tipo_licencia
 INNER JOIN multa m ON m.id_boleta = BV.id_boleta
 INNER JOIN multa_detalle dm ON dm.id_multa = m.id_multa
 INNER JOIN articulos a ON a.id_artic = dm.id_articulo
+INNER JOIN info_boleta ib ON ib.id_boleta = BV.id_boleta
 GROUP BY 
+    BV.id_boleta,  -- Se agregó para corregir el error
     BV.no_boleta, 
     p.placa_inicial, 
     BV.placa_cod, 
@@ -63,7 +66,8 @@ GROUP BY
     BV.dpi, 
     e.ubicacion, 
     BV.nombre, 
-    es.estado
+    es.estado,
+    ib.fecha  -- Se agregó para corregir el error
 ORDER BY BV.no_boleta ASC;
         `;
 
