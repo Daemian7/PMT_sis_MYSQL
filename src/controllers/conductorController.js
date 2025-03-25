@@ -26,6 +26,7 @@ const buscarBoletas = async (req, res) => {
             e.ubicacion, 
             BV.nombre, 
             es.estado,
+            DATE_FORMAT(ib.fecha, '%d/%m/%Y') AS fecha,
             SUM(a.precio) AS total_precio
         FROM boleta_vehiculo BV
         INNER JOIN placa p ON p.id_placa = BV.tipo_placa
@@ -37,6 +38,7 @@ const buscarBoletas = async (req, res) => {
         INNER JOIN multa m ON m.id_boleta = BV.id_boleta
         INNER JOIN multa_detalle dm ON dm.id_multa = m.id_multa
         INNER JOIN articulos a ON a.id_artic = dm.id_articulo
+        INNER JOIN info_boleta ib ON ib.id_boleta = BV.id_boleta
     `;
 
     if (tipo === "DPI") {
@@ -64,7 +66,8 @@ const buscarBoletas = async (req, res) => {
             BV.dpi, 
             e.ubicacion, 
             BV.nombre, 
-            es.estado
+            es.estado,
+            ib.fecha
     `;
 
     try {
@@ -113,7 +116,8 @@ const generarPDF = async (req, res) => {
                 es.estado,
                 a.precio,
                 a.numero_artic,
-                a.detalle
+                a.detalle,
+                DATE_FORMAT(ib.fecha, '%d/%m/%Y') AS fecha
             FROM boleta_vehiculo BV
             INNER JOIN placa p ON p.id_placa = BV.tipo_placa
             INNER JOIN vehiculos v ON v.id_vehiculo = BV.id_vehiculo
@@ -124,6 +128,7 @@ const generarPDF = async (req, res) => {
             INNER JOIN multa m ON m.id_boleta = BV.id_boleta
             INNER JOIN multa_detalle dm ON dm.id_multa = m.id_multa
             INNER JOIN articulos a ON a.id_artic = dm.id_articulo
+            INNER JOIN info_boleta ib ON ib.id_boleta = BV.id_boleta
         `;
 
         let condition = "";

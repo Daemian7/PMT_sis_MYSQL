@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <th>Tipo Vehículo</th>
                     <th>Conductor</th>
                     <th>DPI</th>
+                    <th>Fecha</th>
                     <th>Total</th>
                     <th>Estado</th>
                 </tr>
@@ -68,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <td>${boleta.tipo_vehiculo}</td>
                     <td>${boleta.nombre}</td>
                     <td>${boleta.dpi}</td>
+                    <td>${boleta.fecha}</td>
                     <td>${boleta.total_precio}</td>
                     <td>${boleta.estado}</td>
                 </tr>`;
