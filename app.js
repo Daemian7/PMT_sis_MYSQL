@@ -23,6 +23,7 @@ const buscarRoutes = require('./src/routes/buscarRoutes');
 const trasladoRoutes = require("./src/routes/trasladoRoutes");
 const conductorRoutes = require("./src/routes/conductorRoutes");
 const eliminarRoutes = require("./src/routes/eliminarRoutes");
+const noboletaRoutes = require("./src/routes/noboletaRoutes");
 
 
 
@@ -86,6 +87,7 @@ app.use("/api/buscar", buscarRoutes);
 app.use("/api/traslado", trasladoRoutes);
 app.use("/api/conductor", conductorRoutes);
 app.use("/api/eliminar", eliminarRoutes);
+app.use("/api/noboleta", noboletaRoutes);
 
 
 // Ruta principal (endpoint raíz "/")
